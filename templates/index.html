@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <header>
+        <!-- Nav tabs -->
+        <nav class="navbar navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand">Diablo Subaru Sales Person Tracking</a>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+
+        <!-- End Nav tabs -->
+
+
+
+        <!-- (Optional) - Place this js code after initializing bootstrap.min.js or bootstrap.bundle.min.js -->
+        <script>
+            var triggerEl = document.querySelector('#navId a')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+        </script>
+
+    </header>
+    <br>
+    <br>
+    <br>
+    <main>
+        <!-- a comment in html -->
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-6">
+                    <h1>Enter Your Information</h1>
+                    <form action="/submit" method="post">
+                        <div class="col ">
+                            <label for="exampleInputEmail1" class="form-label">First Name:</label>
+                            <input type="text" name="first_name" class="form-control" aria-describedby="emailHelp">
+                        </div>
+                        <div class="col ">
+                            <label for="exampleInputPassword1" class="form-label">Last Name: </label>
+                            <input type="text" name="last_name" class="form-control">
+                        </div>
+                        <div class=" col ">
+                            <label class="form-check-label" for="exampleCheck1">Years At Dealer:</label>
+                            <input type="text" name="years_at_dealer" class="form-control">
+                        </div>
+                        <br>
+                        <button type=" submit" class="btn btn-primary" value="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="col col-lg-3"></div>
+                <div class="col col-lg-3">
+                    <h1>Sales Target</h1>
+                    <img class="rounded-circle shadow-4-strong"
+                        src="https://i.pinimg.com/280x280_RS/f1/67/5a/f1675ab0523c051edce7aefa76126868.jpg"
+                        alt="Picture of Diablo Subaru LOGO">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- a comment in html -->
+        <div class="container">
+            <div class="row g-2">
+                <div class="col-2"></div>
+                <div class="col-2">
+                    <form action="{{ url_for('create') }}" method="post">
+                        <input class="btn btn-outline-primary" type="submit" value="Create Documents">
+                    </form>
+                </div>
+                <div class="col-2">
+                    <form action="{{ url_for('read') }}" method="post">
+                        <input class="btn btn-outline-primary" type="submit" value="Read Documents">
+                    </form>
+                </div>
+
+                <div class="col-2">
+                    <form action="{{ url_for('delete_all') }}" method="post">
+                        <input class="btn btn-outline-primary" type="submit" value="Delete All Documents">
+                    </form>
+                </div>
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <h1>{{ message }}</h1>
+                </div>
+            </div>
+        </div>
+        <!-- start of table-->
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Years At Dealer</th>
+                    <th class="text-center">Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for document in documents %}
+
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ document['first_name'] }}</td>
+                    <td>{{ document['last_name'] }}</td>
+                    <td>{{ document['years_at_dealer'] }}</td>
+                    <td>
+                        <form action="/update" method="post">
+                            <div class="input-group mb-0">
+                                <input type="text" class="form-control" placeholder="First Name" aria-label="first_name"
+                                    name="first_name">
+                                <input type="text" class="form-control" placeholder="Last Name" aria-label="last_name"
+                                    name="last_name">
+                                <input type="text" class="form-control" placeholder="Years at Dealer"
+                                    aria-label="years_at_dealer" name="years_at_dealer">
+                                <input type="hidden" class="form-control" name="post_Id" value="{{document['_id']}}">
+                                <button type="submit" class="btn btn-warning" value=submit>Update</button>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/delete" method="post">
+                            <button type="submit" class="btn btn-danger" value="{{document['_id']}}"
+                                name="delete_selection">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- end of table-->
+
+    </main>
+    <footer>
+        <!-- place footer here -->
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>
