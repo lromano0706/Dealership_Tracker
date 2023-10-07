@@ -20,10 +20,6 @@ load_dotenv()
 password = os.getenv("password")
 
 
-# import password from config.py
-# from config import password
-
-
 app = Flask(__name__)
 
 
