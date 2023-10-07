@@ -12,9 +12,16 @@ from pymongo.server_api import ServerApi
 # from below to have ObjectId work
 from bson import ObjectId
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+password = os.getenv("password")
+
 
 # import password from config.py
-from config import password
+# from config import password
 
 
 app = Flask(__name__)
