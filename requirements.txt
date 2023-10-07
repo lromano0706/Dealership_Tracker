@@ -1,0 +1,6 @@
+flask
+pymongo
+discord.py
+bson
+dotenv
+os
